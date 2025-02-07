@@ -50,7 +50,7 @@ export default function RepositoriesPage() {
         <p className="text-2xl font-bold">No repositories found.</p>
       )}
       {!loading && !error && repos.length > 0 && (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center max-xl:px-5">
           {/* Sort Button */}
           <button onClick={handleSort} className="mb-3">
             Sort by star <FontAwesomeIcon icon={faSort} />
@@ -60,7 +60,7 @@ export default function RepositoriesPage() {
           {currentRepos.map((repo) => (
             <div
               key={repo.id}
-              className="flex bg-gray-100 dark:bg-card-background rounded-lg shadow-md mb-5 justify-between items-center p-5  gap-4 w-1/2 hover:scale-105 transition-transform duration-300"
+              className="flex bg-gray-100 dark:bg-card-background rounded-lg shadow-md mb-5 justify-between items-center p-5  gap-4 w-1/2 hover:scale-105 transition-transform duration-300 max-xl:w-2/3 max-xl:py-7 max-sm:w-full "
             >
               <div className="left">
                 <div className="flex items-center gap-2">
@@ -69,7 +69,7 @@ export default function RepositoriesPage() {
                 </div>
                 <div>{repo.description}</div>
               </div>
-              <div className="right">
+              <div className="right flex flex-col items-center justify-center min-w-14">
                 <div>{repo.stargazers_count} ⭐</div>
                 <Link to={repo.html_url}>
                   <button className="font-bold text-purple-800 dark:text-purple-500">

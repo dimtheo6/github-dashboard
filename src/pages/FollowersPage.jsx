@@ -21,7 +21,7 @@ export default function FollowersPage() {
   );
 
   return (
-    <div className="flex flex-col items-center gap-2 h-screen">
+    <div className="flex flex-col items-center gap-2 max-sm:px-7">
       {error && (
         <p className=" text-2xl font-bold text-center mt-96">Error: {error}</p>
       )}
@@ -32,10 +32,10 @@ export default function FollowersPage() {
       {/* Follower List */}
       <h1>Number of Followers: {followers.length}</h1>
 
-      {currentFollowers.map((follower) => (
+      {currentFollowers.length > 0 ? currentFollowers.map((follower) => (
         <div
           key={follower.id}
-          className="flex bg-gray-100 rounded-lg shadow-md  items-center justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background"
+          className="flex bg-gray-100 rounded-lg shadow-md  items-center justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background max-2xl:w-2/4 max-lg:w-2/3 max-sm:w-full "
         >
           <div className="flex items-center gap-14">
             <img
@@ -57,7 +57,7 @@ export default function FollowersPage() {
             <button>Visit</button>
           </a>
         </div>
-      ))}
+      )):<p className="flex h-3/4 items-center font-bold text-2xl">No followers</p>}
 
       {/* Pages */}
       <Pagination

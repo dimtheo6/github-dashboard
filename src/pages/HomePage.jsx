@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons/faCube";
 export default function Homepage() {
   return (
-    <div className="flex flex-grow p-40 gap-x-16">
+    <section className="home_container flex flex-grow p-40 gap-x-16 max-xl:flex-col max-xl:items-center max-xl:gap-16 max-md:p-20 max-sm:p-10">
 
-      <div className="flex flex-col w-1/2 space-y-10">
-        <h1 className="font-bold text-5xl">
+      <div className="flex flex-col space-y-10">
+        <h1 className="font-bold text-5xl max-sm:text-4xl">
           Explore Your GitHub Profile with Dynamic, Real-Time Insights
         </h1>
         <p className="text-xl">
@@ -31,9 +31,9 @@ export default function Homepage() {
       <img
         src="/picture.webp"
         alt="Home Picture"
-        className="w-1/2 h-full"
+        className="w-1/2 h-full max-xl:w-full"
       />
       
-    </div>
+    </section>
   );
 }

@@ -72,5 +72,5 @@ export const useFetchRepositories = (username) => {
         fetchAllRepos();
     }, [username, cache]);
 
-    return { repos, loading, error };
+    return { repos, loading, error, setRepos };
 };

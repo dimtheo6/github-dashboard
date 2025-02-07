@@ -29,7 +29,7 @@ export default function Header({ setQuery }) {
   };
 
   return (
-    <header className="flex items-center justify-center h-20">
+    <header className="relative flex items-center justify-center h-20 ">
       {/* Search bar */}
       <input
         type="text"
@@ -40,10 +40,10 @@ export default function Header({ setQuery }) {
         onKeyDown={(e) => e.key === "Enter" && handleSearch(search)}
         onClick={() => setIsFocused(true)}
         placeholder="Search a user..."
-        className="border p-2 w-60 dark:bg-card-background rounded-lg focus:w-96 transition-all duration-300"
+        className="border p-2 w-60 dark:bg-card-background rounded-lg focus:w-96 transition-all duration-300 max-sm:focus:w-60"
       />
       {/* Dark mode icons */}
-      <button onClick={darkModeHandler} className="fixed left-40 text-3xl">
+      <button onClick={darkModeHandler} className="absolute left-10  transform  text-3xl max-sm:left-7">
         {dark ? (
           <FontAwesomeIcon icon={faSun} className="text-orange-400" />
         ) : (

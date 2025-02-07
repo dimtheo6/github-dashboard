@@ -33,7 +33,7 @@ export const Pagination = ({
   };
 
   return (
-    <div className="pagination flex ">
+    <div className="pagination flex text-xl ">
       {/* Left Arrow */}
       <button
         disabled={currentPage === 1}
