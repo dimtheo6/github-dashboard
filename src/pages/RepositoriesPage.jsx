@@ -1,10 +1,10 @@
-import { useParams, useLocation, useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import { useFetchRepositories } from "../hooks/useFetchRepositories";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort, faBook } from "@fortawesome/free-solid-svg-icons";
 import { Pagination } from "../components/Pagination";
+import BackButton from "../components/BackButton";
 
 export default function RepositoriesPage() {
   const [sortOrder, setSortOrder] = useState("descending");
@@ -13,17 +13,15 @@ export default function RepositoriesPage() {
 
   const { userData } = useOutletContext();
   const username = userData?.login;
-  const location = useLocation();
 
-  console.log("Location changed:", location);
-  console.log("Fetching params for username:", username);
+  const { repos, error, loading, setRepos } = useFetchRepositories(username); // fetch repositories
 
-  const { repos, error, loading, setRepos } = useFetchRepositories(username);
-
+  // calculates repositories to show per page
   const lastReposIndex = currentPage * reposPerPage;
   const firstReposIndex = lastReposIndex - reposPerPage;
   const currentRepos = repos.slice(firstReposIndex, lastReposIndex);
 
+  // sort function
   const handleSort = () => {
     const newSortOrder =
       sortOrder === "descending" ? "ascending" : "descending";
@@ -51,10 +49,14 @@ export default function RepositoriesPage() {
       )}
       {!loading && !error && repos.length > 0 && (
         <div className="flex flex-col justify-center items-center max-xl:px-5">
-          {/* Sort Button */}
-          <button onClick={handleSort} className="mb-3">
-            Sort by star <FontAwesomeIcon icon={faSort} />
-          </button>
+
+          <div className="buttons flex justify-around w-full mb-5">
+            <BackButton username={username} />
+            {/* Sort Button */}
+            <button onClick={handleSort} className="font-bold text-lg">
+              Sort List <FontAwesomeIcon icon={faSort} />
+            </button>
+          </div>
 
           {/* Repositories List */}
           {currentRepos.map((repo) => (

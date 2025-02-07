@@ -1,11 +1,11 @@
 import { useFetchSuggestions } from "../hooks/useFetchSuggestions";
 
-export default function Suggestions({search,handleSearch,isFocused}) {
+export default function Suggestions({search,handleSearch}) {
     const { suggestions } = useFetchSuggestions(search); //fetch suggestions
   
     return (
     <>
-      {isFocused && suggestions.length > 0 && (
+      {suggestions.length > 0 && (
         <ul className="absolute top-16 border w-full max-w-xs shadow-md z-10">
           {suggestions.map((user) => (
             <li

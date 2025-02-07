@@ -6,7 +6,6 @@ import Suggestions from "./Suggestions";
 
 export default function Header({ setQuery }) {
   const [search, setSearch] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
   const [dark, setDark] = useState(false);
 
   const navigate = useNavigate();
@@ -38,12 +37,12 @@ export default function Header({ setQuery }) {
         autoComplete="off"
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch(search)}
-        onClick={() => setIsFocused(true)}
         placeholder="Search a user..."
-        className="border p-2 w-60 dark:bg-card-background rounded-lg focus:w-96 transition-all duration-300 max-sm:focus:w-60"
+        className="border border-black dark:border-white p-2 w-60 dark:bg-card-background rounded-lg focus:w-96 transition-all max-sm:focus:w-60 "
       />
+      
       {/* Dark mode icons */}
-      <button onClick={darkModeHandler} className="absolute left-10  transform  text-3xl max-sm:left-7">
+      <button onClick={darkModeHandler} className="absolute left-10    text-3xl max-sm:left-7">
         {dark ? (
           <FontAwesomeIcon icon={faSun} className="text-orange-400" />
         ) : (
@@ -55,7 +54,6 @@ export default function Header({ setQuery }) {
       <Suggestions
         search={search}
         handleSearch={handleSearch}
-        isFocused={isFocused}
       />
     </header>
   );

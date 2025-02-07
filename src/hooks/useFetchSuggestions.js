@@ -41,6 +41,7 @@ export const useFetchSuggestions = (query) => {
       clearTimeout(debounceTimer);
       controller.abort();
     };
+    
   }, [query]);
 
   return { suggestions, loading, error };

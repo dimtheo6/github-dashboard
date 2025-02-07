@@ -44,8 +44,7 @@ export const useFetchUser = (query) => {
                 const newCache = { ...cache, [query]: data };
                 setCache(newCache);
                 localStorage.setItem('userCache', JSON.stringify(newCache));
-               
-                console.log(data);
+                
             } catch (error) {
                 setError(error.message);
                 setUserData(null);

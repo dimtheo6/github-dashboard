@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons/faCube";
+
 export default function Homepage() {
   return (
     <section className="home_container flex flex-grow p-40 gap-x-16 max-xl:flex-col max-xl:items-center max-xl:gap-16 max-md:p-20 max-sm:p-10">

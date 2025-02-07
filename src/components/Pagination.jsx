@@ -11,6 +11,7 @@ export const Pagination = ({
   const [pages, setPages] = useState([]);
   const totalPages = Math.ceil(totalData / dataPerPage); // calculates total pages
 
+  // adds page numbers to array
   useEffect(() => {
     const generatePages = () => {
       const pageNumbers = [];

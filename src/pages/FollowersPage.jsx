@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import { useFetchFollowers } from "../hooks/useFetchFollowers";
 import { useState } from "react";
 import { Pagination } from "../components/Pagination";
+import BackButton from "../components/BackButton";
 
 export default function FollowersPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,8 +10,8 @@ export default function FollowersPage() {
 
   const { userData } = useOutletContext();
   const username = userData?.login;
-  const { followers, setFollowers, loading, error } =
-    useFetchFollowers(username);
+
+  const { followers, loading, error } = useFetchFollowers(username);
 
   // calculates followers per page
   const lastFollowersIndex = currentPage * followersPerPage;
@@ -29,35 +30,44 @@ export default function FollowersPage() {
         <p className="text-2xl font-bold text-center mt-96">Loading...</p>
       )}
 
-      {/* Follower List */}
-      <h1>Number of Followers: {followers.length}</h1>
+      <div className="buttons flex justify-evenly w-full mb-5">
+        <BackButton username={username} />
+        <h1 className="font-bold text-lg">Followers: {followers.length}</h1>
+      </div>
 
-      {currentFollowers.length > 0 ? currentFollowers.map((follower) => (
-        <div
-          key={follower.id}
-          className="flex bg-gray-100 rounded-lg shadow-md  items-center justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background max-2xl:w-2/4 max-lg:w-2/3 max-sm:w-full "
-        >
-          <div className="flex items-center gap-14">
-            <img
-              src={follower.avatar_url}
-              alt="Avatar Image"
-              className="h-10"
-            />
-            <div className="text-lg font-bold text-gray-800 dark:text-white w-2/3">
-              {follower.login}
-            </div>
-          </div>
-          <div>{follower.name}</div>
-          <a
-            href={follower.html_url}
-            className="font-bold text-purple-800 dark:text-purple-500"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Follower List */}
+      {currentFollowers.length > 0 ? (
+        currentFollowers.map((follower) => (
+          <div
+            key={follower.id}
+            className="flex bg-gray-100 rounded-lg shadow-md  items-center justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background max-2xl:w-2/4 max-lg:w-2/3 max-sm:w-full "
           >
-            <button>Visit</button>
-          </a>
-        </div>
-      )):<p className="flex h-3/4 items-center font-bold text-2xl">No followers</p>}
+            <div className="flex items-center gap-14">
+              <img
+                src={follower.avatar_url}
+                alt="Avatar Image"
+                className="h-10"
+              />
+              <div className="text-lg font-bold text-gray-800 dark:text-white w-2/3">
+                {follower.login}
+              </div>
+            </div>
+            <div>{follower.name}</div>
+            <a
+              href={follower.html_url}
+              className="font-bold text-purple-800 dark:text-purple-500"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button>Visit</button>
+            </a>
+          </div>
+        ))
+      ) : (
+        <p className="flex justify-center items-center font-bold text-2xl">
+          No followers
+        </p>
+      )}
 
       {/* Pages */}
       <Pagination

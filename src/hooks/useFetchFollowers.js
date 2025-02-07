@@ -60,6 +60,8 @@ export const useFetchFollowers = (username) => {
                 }
 
                 setFollowers(allFollowers);
+
+                // add followers to cache
                 const newCache = { ...cache, [username]: allFollowers };
                 setCache(newCache);
                 localStorage.setItem('followersCache', JSON.stringify(newCache));
@@ -74,5 +76,5 @@ export const useFetchFollowers = (username) => {
         fetchAllFollowers();
     }, [username, cache]);
 
-    return { followers, setFollowers, loading, error };
+    return { followers, loading, error };
 };
