@@ -29,7 +29,7 @@ export default function Homepage() {
         </ul>
       </div>
       <img
-        src="/src/images/picture.webp"
+        src="/public/picture.webp"
         alt="Home Picture"
         className="w-1/2 h-full"
       />
