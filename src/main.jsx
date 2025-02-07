@@ -1,40 +1,40 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import ProfilePage from './pages/ProfilePage.jsx'
-import RepositoriesPage from './pages/RepositoriesPage.jsx'
-import FollowersPage from './pages/FollowersPage.jsx'
-import HomePage from './pages/HomePage.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import RepositoriesPage from "./pages/RepositoriesPage.jsx";
+import FollowersPage from "./pages/FollowersPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
-    children:[
+    element: <App />,
+    children: [
       {
         index: true,
-        element: <HomePage/>
+        element: <HomePage />,
       },
       {
         path: "/:username",
-        element: <ProfilePage/>,
+        element: <ProfilePage />,
       },
       {
         path: "/:username/repositories",
-        element: <RepositoriesPage/>
+        element: <RepositoriesPage />,
       },
       {
         path: "/:username/followers",
-        element: <FollowersPage/>
-      }
-    ]
-  }
-])
+        element: <FollowersPage />,
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
- 
-    <RouterProvider router={router}/>
-  
-)
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
+);
