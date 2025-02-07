@@ -37,7 +37,7 @@ export default function RepositoriesPage() {
   };
 
   return (
-    <div>
+    <section className="repos_container">
       {error && (
         <p className=" text-2xl font-bold text-center mt-96">Error: {error}</p>
       )}
@@ -91,6 +91,6 @@ export default function RepositoriesPage() {
           />
         </div>
       )}
-    </div>
+    </section>
   );
 }

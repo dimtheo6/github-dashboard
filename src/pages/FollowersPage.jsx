@@ -22,7 +22,7 @@ export default function FollowersPage() {
   );
 
   return (
-    <div className="flex flex-col items-center gap-2 max-sm:px-7">
+    <section className="follower_container flex flex-col items-center gap-2 max-sm:px-7">
       {error && (
         <p className=" text-2xl font-bold text-center mt-96">Error: {error}</p>
       )}
@@ -76,6 +76,6 @@ export default function FollowersPage() {
         totalData={followers.length}
         dataPerPage={followersPerPage}
       />
-    </div>
+    </section>
   );
 }

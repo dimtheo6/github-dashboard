@@ -4,7 +4,7 @@ export default function ProfilePage() {
   const { userData, error, loading } = useOutletContext();
 
   return (
-    <div>
+    <section className="profile_container">
       {error && (
         <p className=" text-2xl font-bold text-center mt-96">Error: {error}</p>
       )}
@@ -86,6 +86,6 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
