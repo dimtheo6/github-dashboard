@@ -30,17 +30,20 @@ export default function ProfilePage() {
 
             {/* Repositories and Follower Links */}
             <div className="buttons flex gap-5">
+
               <Link to={`/${userData.login}/repositories`}>
                 <button className="bg-blue-500 text-white text-lg p-2 rounded-lg font-bold hover:bg-blue-700 transition-all duration-300">
                   Repositories
                 </button>
               </Link>
+
               <Link to={`/${userData.login}/followers`}>
                 <button className="bg-blue-500 text-white text-lg p-2 rounded-lg font-bold hover:bg-blue-700 transition-all duration-300">
                   Followers
                 </button>
               </Link>
             </div>
+            
           </div>
 
           {/* Details */}

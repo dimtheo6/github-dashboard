@@ -7,7 +7,7 @@ import Suggestions from "./Suggestions";
 export default function Header({ setQuery }) {
   const [search, setSearch] = useState("");
   const [dark, setDark] = useState(false);
-
+  
   const navigate = useNavigate();
 
   // toggles dark mode
@@ -23,7 +23,7 @@ export default function Header({ setQuery }) {
     setQuery(username);
     setSearch("");
     navigate(`/${username}`);
-    
+
     localStorage.setItem("lastUser", username);
   };
 

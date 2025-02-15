@@ -4,11 +4,12 @@ import Header from "./components/Header";
 import { useFetchUser } from "./hooks/useFetchUser";
 import { Outlet } from "react-router-dom";
 
+
+
 function App() {
   const [query, setQuery] = useState("");
-  const { userData, loading, error } = useFetchUser(query);
+  const { data: userData, isLoading: loading, error } = useFetchUser(query);
 
-  
   useEffect(() => {
     const lastUser = localStorage.getItem("lastUser");
 
@@ -16,10 +17,11 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col">
-      <Header setQuery={setQuery}/>
-      <Outlet context={{ userData, loading, error }} />
-    </div>
+
+      <div className="flex flex-col">
+        <Header setQuery={setQuery} />
+        <Outlet context={{ userData, loading, error }} />
+      </div>
   );
 }
 

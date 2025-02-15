@@ -8,7 +8,7 @@ export default function FollowersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const followersPerPage = 8; // Change as needed
 
-  const { userData } = useOutletContext();
+  const { userData } = useOutletContext(); // get user data 
   const username = userData?.login;
 
   const { followers, loading, error } = useFetchFollowers(username);

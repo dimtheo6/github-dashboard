@@ -11,7 +11,7 @@ export default function RepositoriesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const reposPerPage = 6; // Change as needed
 
-  const { userData } = useOutletContext();
+  const { userData } = useOutletContext(); // get user data 
   const username = userData?.login;
 
   const { repos, error, loading, setRepos } = useFetchRepositories(username); // fetch repositories
@@ -23,8 +23,7 @@ export default function RepositoriesPage() {
 
   // sort function
   const handleSort = () => {
-    const newSortOrder =
-      sortOrder === "descending" ? "ascending" : "descending";
+    const newSortOrder = sortOrder === "descending" ? "ascending" : "descending";
     setSortOrder(newSortOrder);
 
     const sortedRepos = [...repos].sort((a, b) =>
@@ -47,9 +46,9 @@ export default function RepositoriesPage() {
       {!loading && !error && repos.length === 0 && (
         <p className="text-2xl font-bold">No repositories found.</p>
       )}
+
       {!loading && !error && repos.length > 0 && (
         <div className="flex flex-col justify-center items-center max-xl:px-5">
-
           <div className="buttons flex justify-around w-full mb-5">
             <BackButton username={username} />
             {/* Sort Button */}
