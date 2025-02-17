@@ -24,7 +24,7 @@ export default function Header({ setQuery }) {
     setSearch("");
     navigate(`/${username}`);
 
-    localStorage.setItem("lastUser", username);
+ 
   };
 
   return (

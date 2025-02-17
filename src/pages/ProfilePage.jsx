@@ -87,6 +87,7 @@ export default function ProfilePage() {
               </p>
             </div>
           </div>
+  
         </div>
       )}
     </section>

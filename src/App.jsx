@@ -2,18 +2,22 @@ import { useEffect, useState } from "react";
 import "./index.css";
 import Header from "./components/Header";
 import { useFetchUser } from "./hooks/useFetchUser";
-import { Outlet } from "react-router-dom";
+import { Outlet,useParams } from "react-router-dom";
 
 
 
 function App() {
   const [query, setQuery] = useState("");
   const { data: userData, isLoading: loading, error } = useFetchUser(query);
+  let params = useParams();
+
+
 
   useEffect(() => {
-    const lastUser = localStorage.getItem("lastUser");
+    const lastUser = params.username;
 
     setQuery(lastUser); // Restore last searched user on refresh
+    console.log(params)
   }, []);
 
   return (

@@ -40,7 +40,7 @@ export default function FollowersPage() {
         currentFollowers.map((follower) => (
           <div
             key={follower.id}
-            className="flex bg-gray-100 rounded-lg shadow-md  items-center justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background max-2xl:w-2/4 max-lg:w-2/3 max-sm:w-full "
+            className="flex bg-gray-100 rounded-lg shadow-md  items-center  justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background max-2xl:w-2/4 max-lg:w-2/3 max-sm:w-full "
           >
             <div className="flex items-center gap-14">
               <img
