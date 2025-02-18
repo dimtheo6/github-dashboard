@@ -17,8 +17,7 @@ function App() {
     const lastUser = params.username;
 
     setQuery(lastUser); // Restore last searched user on refresh
-    console.log(params)
-  }, []);
+  }, [params]);
 
   return (
 
