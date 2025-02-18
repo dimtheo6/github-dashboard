@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchFollowers = async ({ queryKey }) => {
   const [, username, batch] = queryKey; // Destructure queryKey
-  const perPage = 40; // Batch size: 30 followers per fetch
+  const perPage = 40; // Batch size: 40 followers per fetch
   const response = await fetch(
     `https://api.github.com/users/${username}/followers?per_page=${perPage}&page=${batch}`
   );
@@ -16,7 +16,6 @@ const fetchFollowers = async ({ queryKey }) => {
 
   return response.json();
 };
-
 
 export const useFetchFollowers = (username, page, followersPerPage, totalFollowers) => {
   // Determine the batch to fetch based on the current page (5 pages per batch)
