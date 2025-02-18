@@ -8,36 +8,29 @@ export default function FollowersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const followersPerPage = 8; // Change as needed
 
-  const { userData } = useOutletContext(); // get user data 
+  const { userData } = useOutletContext(); // get user data
   const username = userData?.login;
+  const totalFollowers = userData?.followers;
 
-  const { followers, loading, error } = useFetchFollowers(username);
-
-  // calculates followers per page
-  const lastFollowersIndex = currentPage * followersPerPage;
-  const firstFollowersIndex = lastFollowersIndex - followersPerPage;
-  const currentFollowers = followers.slice(
-    firstFollowersIndex,
-    lastFollowersIndex
-  );
+  const { followers, isLoading, error } = useFetchFollowers(username, currentPage, followersPerPage, totalFollowers);
 
   return (
     <section className="follower_container flex flex-col items-center gap-2 max-sm:px-7">
       {error && (
         <p className=" text-2xl font-bold text-center mt-96">Error: {error}</p>
       )}
-      {loading && (
+      {isLoading && (
         <p className="text-2xl font-bold text-center mt-96">Loading...</p>
       )}
 
       <div className="buttons flex justify-evenly w-full mb-5">
         <BackButton username={username} />
-        <h1 className="font-bold text-lg">Followers: {followers.length}</h1>
+        <h1 className="font-bold text-lg">Followers: {userData?.followers}</h1>
       </div>
 
       {/* Follower List */}
-      {currentFollowers.length > 0 ? (
-        currentFollowers.map((follower) => (
+      {followers.length > 0 ? (
+        followers.map((follower) => (
           <div
             key={follower.id}
             className="flex bg-gray-100 rounded-lg shadow-md  items-center  justify-between p-5  w-1/3 hover:scale-105 transition-transform duration-300  dark:bg-card-background max-2xl:w-2/4 max-lg:w-2/3 max-sm:w-full "
@@ -70,12 +63,14 @@ export default function FollowersPage() {
       )}
 
       {/* Pages */}
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalData={followers.length}
-        dataPerPage={followersPerPage}
-      />
+      {totalFollowers && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalData={totalFollowers}
+          dataPerPage={followersPerPage}
+        />
+      )}
     </section>
   );
 }

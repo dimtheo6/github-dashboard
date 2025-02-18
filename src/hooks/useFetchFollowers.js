@@ -1,80 +1,55 @@
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-export const useFetchFollowers = (username) => {
-    const [followers, setFollowers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [cache, setCache] = useState(() => {
-        // Initialize cache from localStorage
-        const cachedData = localStorage.getItem('followersCache');
-        return cachedData ? JSON.parse(cachedData) : {};
-    });
+/* Fetches followers */
+const fetchFollowers = async ({ queryKey }) => {
+  const [, username, batch, batchSize] = queryKey;
+  const response = await fetch(
+    `https://api.github.com/users/${username}/followers?per_page=${batchSize}&page=${batch}`
+  );
 
-    useEffect(() => {
-        if (!username) {
-            setLoading(false);
-            return;
-        }
+  if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error("Rate limit exceeded. Try again later.");
+    }
+    throw new Error("Could not fetch followers.");
+  }
 
-        const fetchAllFollowers = async () => {
-            setLoading(true);
-            setError(null);
+  return response.json();
+};
 
-            // Check if the data is already in the cache
-            if (cache[username]) {
-                setFollowers(cache[username]);
-                setLoading(false);
-                return;
-            }
+/* useFetchFollowers hook */
+export const useFetchFollowers = (
+  username,
+  page,
+  followersPerPage,
+  pagesPerBatch = 5 // fetches every 5 pages, Change as needed.
+) => {
+  // Calculate the batch number based on the current page and pages per batch.
+  const batch = Math.ceil(page / pagesPerBatch);
 
-            try {
-                let allFollowers = [];
-                let page = 1;
-                let perPage = 100; // GitHub allows up to 100 per request
+  // Calculate the total number of followers to fetch in one batch.
+  const batchSize = pagesPerBatch * followersPerPage;
 
-                let hasMoreData = true; // Control flag to continue fetching
+  const {
+    data: fetchedFollowers = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["followers", username, batch, batchSize],
+    queryFn: fetchFollowers,
+    enabled: Boolean(username),
+    staleTime: 1000 * 60 * 5, // Data is considered fresh for 5 minutes.
+    cacheTime: 1000 * 60 * 10, // Cache remains for 10 minutes.
+    retry: 1,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 3000),
+  });
 
-                while (hasMoreData) {
-                    const response = await fetch(
-                        `https://api.github.com/users/${username}/followers?per_page=${perPage}&page=${page}`
-                    );
 
-                    if (!response.ok) {
-                        if (response.status === 403) {
-                            throw new Error("Rate limit exceeded. Please try again later.");
-                        } else {
-                            throw new Error("Could not fetch followers. Please try again.");
-                        }
-                    }
+  // Determine which slice of the fetched batch corresponds to the current page.
+  const batchPageOffset = (page - 1) % pagesPerBatch;
+  const startIndex = batchPageOffset * followersPerPage;
+  const endIndex = startIndex + followersPerPage;
+  const followers = fetchedFollowers.slice(startIndex, endIndex);
 
-                    const data = await response.json();
-                    console.log("Followers are:", data);
-
-                    // If the data length is less than perPage, it's the last page of results
-                    if (data.length < perPage) {
-                        hasMoreData = false; // Stop fetching after the last page
-                    }
-
-                    allFollowers = allFollowers.concat(data);
-                    page++;
-                }
-
-                setFollowers(allFollowers);
-
-                // add followers to cache
-                const newCache = { ...cache, [username]: allFollowers };
-                setCache(newCache);
-                localStorage.setItem('followersCache', JSON.stringify(newCache));
-            } catch (error) {
-                setError(error.message);
-                setFollowers([]);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchAllFollowers();
-    }, [username, cache]);
-
-    return { followers, loading, error };
+  return { followers, isLoading, error };
 };
